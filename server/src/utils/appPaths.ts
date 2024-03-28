@@ -9,6 +9,11 @@ export let __dirname =
 
 __dirname = __dirname.replaceAll("%20", " ");
 
+if (process.platform === "win32") {
+	// remove leading '/' in the path for Windows (32-bit and 64-bit)
+	__dirname = __dirname.substring(1);
+}
+
 const isHeadless = !process.env.FORK;
 export const rootPath = isHeadless
 	? process.env.NODE_PATH || path.join(__dirname, "./dist")
